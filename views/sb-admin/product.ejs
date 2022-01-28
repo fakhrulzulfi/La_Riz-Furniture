@@ -1,0 +1,339 @@
+<% const product = data.product %>
+<% const product_type = data.product_type %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Blank</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="assets/sb-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">    
+
+    <!-- Custom styles for this template-->
+    <link href="assets/sb-admin/css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="/product" >
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/transaction" >
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Transaction</span>
+                </a>
+            </li>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- CONTENT -->
+
+                    <!-- Page Heading -->
+                    <br>
+                    <h1 class="h3 mb-2 text-gray-800">Products</h1>
+                    
+
+                    <!-- Button Add Product -->
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddProduct">
+                        Add Product
+                    </button>
+                    <br>
+                    <br>
+                    
+                    
+                    <!-- DataTables Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">List of Product</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>Number</th>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                            <th>Description</th>
+                                            <th>Stock</th>
+                                            <th>Type</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% let count = 1 %>
+                                        <% if( product.length > 0 ) { %>
+                                            <% product.forEach((item) => { %>
+                                                <tr>
+                                                    <td class="text-center"><%= count++ %></td>
+                                                    <td><%= item.product_name %></td>
+                                                    <td class="text-center">Rp. <%= item.price %></td>
+                                                    <td><%= item.description %></td>
+                                                    <td class="text-center"><%= item.stock %></td>
+                                                    <td class="text-center"><%= item.type_name %></td>
+                                                    <td class="text-center">
+                                                        <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target=<%= `#UpdateProduct${item.id}` %>>Update</a> 
+                                                        |
+                                                        <a href="<%= `/delete_product/${item.id}` %>" class="btn btn-danger btn-sm">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            <% }) %>
+                                        <% } else { %>
+                                            <tr>
+                                                Product Not Found
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END OF CONTENT -->
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal AddProduct -->
+    <div class="modal fade" id="AddProduct" tabindex="-1" aria-labelledby="AddProduct" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="AddProduct">Add Some Product</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form action="/add_product" enctype="multipart/form-data" method="post">
+                    <div class="form-group">
+                        <label for="InputName">Name</label>
+                        <input type="text" class="form-control" id="InputName" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <input type="text" class="form-control" id="Description" name="description">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-9 col-xs-9">
+                            <label for="price">Price</label>
+                            <input type="number" class="form-control" id="price" name="price">
+                        </div>
+                        <div class="form-group col-md-3 col-xs-3">
+                            <label for="stock">Stock</label>
+                            <input type="number" class="form-control" id="stock" name="stock">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <select id="type" class="form-control" name="type">
+                            <% product_type.forEach((item) => { %>
+                                <option value="<%= item.id %>"><%= item.name %></option>
+                            <% }) %>
+                        </select>
+                    </div> 
+                    <div id="list_file"></div>
+                    <div class="form-group custom-file">
+                        <input type="file" class="custom-file-input" multiple id="image-input" onchange="getFiles()" name="image"  required>
+                        <label class="custom-file-label" for="image-input">Insert image...</label>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- End Modal AddProduct -->
+
+    <!-- Modal UpdateProduct -->
+    <% product.forEach((item) => { %>
+        <div class="modal fade" id="<%= `UpdateProduct${item.id}` %>" tabindex="-1" aria-labelledby="<%= `UpdateProduct${item.id}` %>" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="UpdateProduct">Update Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/update_product/<%= item.id %>" method="POST">
+                        <div class="form-group">
+                            <label for="InputName">Name</label>
+                            <input type="text" class="form-control" name="name" id="InputName" value=<%= item.product_name %>>
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <input type="text" class="form-control" name="description" id="Description" value=<%= item.description %>>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-9 col-xs-9">
+                                <label for="price">Price</label>
+                                <input type="number" class="form-control" name="price" id="price" value=<%= item.price %>>
+                            </div>
+                            <div class="form-group col-md-3 col-xs-3">
+                                <label for="stock">Stock</label>
+                                <input type="number" class="form-control" name="stock" id="stock" value=<%= item.stock %>>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Type</label>
+                            <select id="type" class="form-control" name="type" >
+                                <option value="<%= item.type_id %>" selected><%= item.type_name %></option>
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                            </select>
+                        </div> 
+                        
+                        
+                        <div id="list_file_update"><%= item.image %></div>
+                        <input type="hidden" value="<%= item.image %>" id="hiddenNameImage" name="imageNow" />
+                        <div class="form-group custom-file">
+                            <input type="file" class="custom-file-input" id="image-update" name="image-update" onchange="getFilesUpdate()" multiple>
+                            <label class="custom-file-label" for="image">Insert image...</label>
+                        </div>
+    
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    <% }) %>
+    <!-- End Modal UpdateProduct -->
+
+    <script>
+        const getFiles = () => {
+            let files = document.getElementById('image-input').files;
+            document.getElementById('list_file').innerHTML = files[0].name;
+        };
+
+        const getFilesUpdate = () => {
+            let files = document.getElementById('image-update').files;
+            let insertName = document.getElementById('list_file_update').innerHTML = files[0].name;
+            let imageUpdate = document.getElementById('hiddenNameImage');
+            imageUpdate.setAttribute('value', insertName);
+        };
+    </script>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="assets/sb-admin/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/sb-admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="assets/sb-admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="assets/sb-admin/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>
